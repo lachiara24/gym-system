@@ -1,0 +1,58 @@
+<app-modal-new
+    (onAddCliente)="addCliente($event)">
+</app-modal-new>
+
+<app-modal-edit
+    [cliente]="clienteEditar"
+    (onEditCliente)="editCliente($event)">
+</app-modal-edit>
+
+<app-modal-delete
+    [clienteId]="clienteEditar.id"
+    (onDeleteCliente)="deleteCliente($event)">
+</app-modal-delete>
+
+
+<div class="table-responsive">
+    <div class="table-wrapper">
+        
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="selectAll">
+                            <label for="selectAll"></label>
+                        </span>
+                    </th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Último pago</th>
+                    <th>Vencimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientes">
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                            <label for="checkbox1"></label>
+                        </span>
+                    </td>
+                    <td>{{cliente.id}} {{cliente.nombre}} {{cliente.apellido}}</td>
+                    <td>{{cliente.dni}}</td>
+                    <td>pago generico</td>
+                    <td>vencimiento generico</td>
+                    <td>
+                        <a href="#" class="edit" data-bs-toggle="modal" data-bs-target="#editarClienteModal" (click)="getCliente(cliente.id)">edit</a>
+                        <a href="#" class="delete" data-bs-toggle="modal" data-bs-target="#eliminarClienteModal"  (click)="getCliente(cliente.id)">delete</a>
+                        <a href="#" class="" data-bs-toggle="modal" data-bs-target=""  (click)="getCliente(cliente.id)">pagos</a>
+                    </td>    
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p *ngFor="let p of pagos">{{p.f_pago}} {{p.f_venc}}</p>

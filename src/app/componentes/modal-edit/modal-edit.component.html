@@ -1,0 +1,96 @@
+<div id="editarClienteModal" class="modal fade"
+  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">      
+        <div class="modal-header">						
+          <h4 class="modal-title">Editar Cliente</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()">	
+            <div class="row">
+              <div class="col-3 ml-auto mr-2">
+                  <qrcode 
+                  *ngIf="dni"
+                  [qrdata]="dni" [width]="200" [errorCorrectionLevel]="'H'"></qrcode> 
+              </div>
+              
+            <div class="col">
+              <input type="text" [(ngModel)]="id" [ngModelOptions]="{standalone:true}" value="{{cliente.id}}">
+              <div class="form-control">
+                <label for="text">Nombre</label>
+                <input 
+                    type="text" 
+                    name="nombre" 
+                    id="nombre" 
+                    [(ngModel)]="nombre"
+                    value="{{cliente.nombre}}"
+                    required> 
+                     
+              </div>
+  
+              <div class="form-control">
+                <label>Apellido</label>
+                <input 
+                  name="apellido" 
+                  id="apellido" 
+                  type="text" 
+                  [(ngModel)]="apellido"
+                  value="{{cliente.apellido}}"
+                  required>
+              </div>
+  
+              <div class="form-control">
+                <label>Dni</label>
+                <input 
+                  name="dni" 
+                  id="dni" 
+                  type="text" 
+                  [(ngModel)]="dni"
+                  value="{{cliente.dni}}"
+                  required>
+              </div>	
+  
+              
+            </div>
+            <div class="col">
+              <div class="form-control">
+                <label>Direccion</label>
+                <input 
+                  name="dire" 
+                  id="dire" 
+                  type="text" 
+                  [(ngModel)]="dire"
+                  >
+              </div>
+              <div class="form-control">
+                <label>Obra social</label>
+                <input 
+                  name="obra" 
+                  id="obra" 
+                  type="text" 
+                  [(ngModel)]="obra"
+                  >
+              </div>
+              <div class="form-control">
+                <label>Telefonos</label>
+                <!-- <button class="btn btn-success">Agregar</button>
+                <div *ngFor="let cont">
+                  <input type="text">
+                </div> -->
+              </div>
+            </div>            
+          </div>	
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancelar">
+            <input type="submit" class="btn btn-success" data-bs-dismiss="modal" value="Actualizar">
+          </div>
+
+          </form>			
+        </div>
+        
+    </div>
+  </div>
+</div>
+
