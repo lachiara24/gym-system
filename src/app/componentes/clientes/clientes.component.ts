@@ -11,24 +11,35 @@ import { Pago } from 'src/app/Pago';
 })
 export class ClientesComponent implements OnInit{
   clientes: Cliente[] = [];
-  pagos: Pago[] = [];
-  clienteEditar: Cliente = {nombre: '', apellido: '', dni: ''};
-  
+  clienteEditar: Cliente = {id: 0, nombre: '', apellido: '', dni: ''};
+  ultimoPago: Pago = {fechaPago: new Date(), fechaVenc: new Date()};
+  filterBy;
 
   constructor(
-    private clienteService: ClienteService,
-    private pagoService: PagoService){}
+    private pagoService: PagoService,
+    private clienteService: ClienteService){}
 
   ngOnInit() {
     this.clienteService.getClientes().subscribe((clientes) => {
       this.clientes = clientes
-    });
+    });    
   }
 
   getCliente(id){
     this.clienteService.getCliente(id).subscribe((cliente) => {
       this.clienteEditar = cliente;
     });
+  }
+
+  getLastPago(clienteId): Pago{
+    this.pagoService.getLastPago(clienteId).subscribe((pago) => {
+      this.ultimoPago = pago;
+    });    
+    return this.ultimoPago;
+  }
+
+  getClientePago(id): Cliente{
+    return this.clienteEditar;
   }
 
   addCliente(cliente: Cliente){

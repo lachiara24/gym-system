@@ -17,6 +17,19 @@ import { FormsModule } from '@angular/forms';
 import { ModalNewComponent } from './componentes/modal-new/modal-new.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalDeleteComponent } from './componentes/modal-delete/modal-delete.component';
+import { PagosComponent } from './componentes/pagos/pagos.component';
+import { Routes, RouterModule } from '@angular/router';
+import { ModalNewPagoComponent } from './componentes/modal-new-pago/modal-new-pago.component';
+import { ModalEditPagoComponent } from './componentes/modal-edit-pago/modal-edit-pago.component';
+import { ModalDeletePagoComponent } from './componentes/modal-delete-pago/modal-delete-pago.component';
+import { DdMmYYYYDatePipe } from './dd-mm-yyyy-date.pipe';
+import { FilterPipe } from './filter.pipe';
+
+const rutas: Routes = [
+  { path: '', component: ClientesComponent },
+  { path: 'pagos/:idcliente', component: PagosComponent },
+  { path: 'qr', component: LectorQRComponent}
+];
 
 @NgModule({
   declarations: [
@@ -27,7 +40,13 @@ import { ModalDeleteComponent } from './componentes/modal-delete/modal-delete.co
     ModalEditComponent,
     ModalEjComponent,
     ModalNewComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    PagosComponent,
+    ModalNewPagoComponent,
+    ModalEditPagoComponent,
+    ModalDeletePagoComponent,
+    DdMmYYYYDatePipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -35,7 +54,8 @@ import { ModalDeleteComponent } from './componentes/modal-delete/modal-delete.co
     ZXingScannerModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(rutas)
   ],
   providers: [],
   bootstrap: [AppComponent]
