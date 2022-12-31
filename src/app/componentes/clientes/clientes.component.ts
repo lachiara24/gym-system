@@ -14,6 +14,7 @@ export class ClientesComponent implements OnInit{
   clienteEditar: Cliente = {id: 0, nombre: '', apellido: '', dni: ''};
   ultimoPago: Pago = {fechaPago: new Date(), fechaVenc: new Date()};
   filterBy;
+  clientesSeleccionados: Cliente[] = [];
 
   constructor(
     private pagoService: PagoService,
@@ -23,6 +24,24 @@ export class ClientesComponent implements OnInit{
     this.clienteService.getClientes().subscribe((clientes) => {
       this.clientes = clientes
     });    
+  }
+  
+  checkAllCheckBox(event){
+    this.clientes.forEach((c) => this.clientesSeleccionados.push(c));
+  }
+
+  checkbox(event){
+    if ( event.target.checked ) {
+      console.log(event.target.value);
+      let clienteSeleccionado = this.clientes.find( item => item.id == event.target.value);
+      if (clienteSeleccionado !== undefined){
+        this.clientesSeleccionados.push(clienteSeleccionado);
+      }      
+    }
+  }
+
+  imprimir(){
+    console.log(this.clientesSeleccionados);
   }
 
   getCliente(id){

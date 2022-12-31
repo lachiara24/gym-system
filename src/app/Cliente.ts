@@ -3,4 +3,5 @@ export interface Cliente{
     nombre: string;
     apellido: string;
     dni: string;
+    isSelected?: boolean;
 }

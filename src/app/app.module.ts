@@ -24,11 +24,16 @@ import { ModalEditPagoComponent } from './componentes/modal-edit-pago/modal-edit
 import { ModalDeletePagoComponent } from './componentes/modal-delete-pago/modal-delete-pago.component';
 import { DdMmYYYYDatePipe } from './dd-mm-yyyy-date.pipe';
 import { FilterPipe } from './filter.pipe';
+import {NgxPrintModule} from 'ngx-print';
+import { ImprimirComponent } from './componentes/imprimir/imprimir.component';
+import { ImprimirTodosComponent } from './componentes/imprimir-todos/imprimir-todos.component';
 
 const rutas: Routes = [
   { path: '', component: ClientesComponent },
   { path: 'pagos/:idcliente', component: PagosComponent },
-  { path: 'qr', component: LectorQRComponent}
+  { path: 'qr', component: LectorQRComponent},
+  { path: 'imprimir/:nombre/:apellido/:dni', component:ImprimirComponent },
+  { path: 'imprimir', component: ImprimirTodosComponent}
 ];
 
 @NgModule({
@@ -46,7 +51,9 @@ const rutas: Routes = [
     ModalEditPagoComponent,
     ModalDeletePagoComponent,
     DdMmYYYYDatePipe,
-    FilterPipe
+    FilterPipe,
+    ImprimirComponent,
+    ImprimirTodosComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,8 @@ const rutas: Routes = [
     NgbModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(rutas)
+    RouterModule.forRoot(rutas),
+    NgxPrintModule
   ],
   providers: [],
   bootstrap: [AppComponent]
