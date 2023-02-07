@@ -1,0 +1,55 @@
+<form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <h3>{{titulo}}</h3>
+    <table class="example-full-width" cellspacing="0">
+    <tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
+        <mat-error *ngIf="myError('nombre', 'required')">Es un campo obligatorio</mat-error>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido">
+        <mat-error *ngIf="myError('apellido', 'required')">Es un campo obligatorio</mat-error>
+      </mat-form-field></td>
+    </tr>
+    </table>
+
+    <table class="example-full-width" cellspacing="0">
+    <tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>DNI</mat-label>
+          <input matInput formControlName="dni">
+          <mat-error *ngIf="myError('dni', 'required')">Es un campo obligatorio</mat-error>
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>Obra social</mat-label>
+          <input matInput formControlName="obra">
+        </mat-form-field></td>
+      </tr>
+    </table>
+    
+    <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="tel">
+        </mat-form-field>
+    </p>
+  
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Dirección</mat-label>
+        <textarea matInput formControlName="direccion"></textarea>
+      </mat-form-field>
+    </p>
+  
+    <div class="buttons">
+        <button type="submit" mat-raised-button color="primary">
+            Guardar
+        </button>
+        <button type="button" routerLink="/" mat-button color="primary">
+            Cancelar
+        </button>
+    </div>
+    
+</form>

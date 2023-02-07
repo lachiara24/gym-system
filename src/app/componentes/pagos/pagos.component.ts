@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { PagoService } from 'src/app/servicios/pago.service';
 import { ClienteService } from 'src/app/servicios/cliente.service';
 import { Pago } from 'src/app/Pago';
@@ -32,12 +32,16 @@ export class PagosComponent implements OnInit {
     this.pagoService.getPagos(this.clienteId).subscribe((pagos) => {
       this.pagos = pagos
     });
+    this.getClienteInfo();
+  }
+
+  getClienteInfo(){
     this.clienteService.getCliente(this.clienteId).subscribe((cliente) => {
       this.cliente = cliente
     });
     this.pagoService.getLastPago(this.clienteId).subscribe((pago) => {
       this.ultimoPago = pago;
-    });    
+    });   
   }
 
   getPago(id){
@@ -48,12 +52,15 @@ export class PagosComponent implements OnInit {
 
   addPago(pago: Pago){
     this.pagoService.addPago(this.clienteId, pago).subscribe((pago) => {
+      this.pagos = this.pagos || [];
       this.pagos.push(pago)
     });
   }
 
   editPago(pago: Pago){
     this.pagoService.updatePago(this.clienteId, pago).subscribe();
+    let index = this.pagos.findIndex(el => el.id == pago.id);
+    this.pagos[index] = pago;
   }
 
   deletePago(id){

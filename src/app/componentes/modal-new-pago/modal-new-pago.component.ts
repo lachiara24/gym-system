@@ -18,4 +18,5 @@ export class ModalNewPagoComponent {
     const newPago = {fechaPago, fechaVenc}
     this.onAddPago.emit(newPago);
   }
+
 }

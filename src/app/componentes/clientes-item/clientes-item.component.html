@@ -1,30 +1,30 @@
 <div class="container-fluid">
-<div class="cliente row align-items-center">
-    <div class="col ml-auto mr-2">
-        <div class="container infoCliente">
+    <div class="cliente row">
+        <div class="col-4">
+        <div class="infoCliente">
             <h2>
                 {{cliente.nombre}} {{cliente.apellido}}
             </h2>
             <h3>DNI: {{cliente.dni}}</h3>
             <div *ngIf="ultimoPago">
-                <h3>Último pago: {{ultimoPago.fechaPago | ddMmYYYYDate}}</h3>
-                <h3>Último vencimiento: {{ultimoPago.fechaVenc | ddMmYYYYDate}}</h3>
+                <h3>Último pago: {{ultimoPago.pago | date: 'dd/MM/yyyy'}}</h3>
+                <h3>Último vencimiento: {{ultimoPago.venc | date: 'dd/MM/yyyy'}}</h3>
                 
-                <div *ngIf="clienteActivo(ultimoPago.fechaVenc); else inactivo">                    
-                    <h3>Quedan {{quedanDias(ultimoPago.fechaVenc)}} días</h3>
-                    <span class="btn btn-success">ACTIVO</span>
+                <div *ngIf="clienteActivo(ultimoPago.venc); else inactivo">                    
+                    <p class="dias">Quedan {{quedanDias(ultimoPago.venc)}} días</p>
+                    <span class="activo btn btn-success">ACTIVO</span>
                 </div> 
                 <ng-template #inactivo>
-                    <span class="btn btn-danger">INACTIVO</span>
+                    <span class="activo btn btn-danger">VENCIDO</span>
                 </ng-template>
             </div>
         </div>
-    </div>
-    <div class="col-5 ml-auto mr-2">
+        </div>
+        <div class="col-3">
         <qrcode 
         *ngIf="cliente.dni"
-        [qrdata]="cliente.dni" [width]="200" [errorCorrectionLevel]="'H'"></qrcode> 
+        [qrdata]="cliente.dni" [width]="250" [errorCorrectionLevel]="'H'"></qrcode> 
+        </div>
     </div>
-</div>
 </div>
 

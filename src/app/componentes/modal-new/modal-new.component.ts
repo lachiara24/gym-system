@@ -18,7 +18,14 @@ export class ModalNewComponent {
     const {nombre, apellido, dni, dire, obra} = this
     const newCliente = {nombre, apellido, dni, dire, obra}
     this.onAddCliente.emit(newCliente);
+    this.limpiarFormulario();
   }
 
-  
+  limpiarFormulario(){
+    this.nombre = '';
+    this.apellido = '';
+    this.dni = '';
+    this.dire = '';
+    this.obra = '';
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gym-system-51516": {
+      "hosting": {
+        "gym-system": [
+          "gym-system-51516"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gym-system-51516"
+  }
+}

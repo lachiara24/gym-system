@@ -1,0 +1,28 @@
+<form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <h3>{{titulo}}</h3>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Fecha de pago</mat-label>
+      <input matInput [matDatepicker]="pago" formControlName="pago">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="pago"></mat-datepicker-toggle>
+      <mat-datepicker #pago></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Fecha de vencimiento</mat-label>
+      <input matInput [matDatepicker]="venc" formControlName="venc">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="venc"></mat-datepicker-toggle>
+      <mat-datepicker #venc></mat-datepicker>
+    </mat-form-field>
+    
+  
+    <div class="buttons">
+        <button type="submit" mat-raised-button color="primary">
+            Guardar
+        </button>
+        <button type="button" [routerLink]="['/pagos/', idCliente]" mat-button color="primary">
+            Cancelar
+        </button>
+    </div>
+    
+</form>

@@ -59,9 +59,25 @@
 	table.table tr th:first-child {
 		width: 60px;
 	}
-	table.table tr th:last-child {
-		width: 100px;
+	table.table tr th:nth-child(2) {
+		width: 350px;
 	}
+	table.table tr th:nth-child(3) {
+		width: 200px;
+	}
+	table.table tr th:nth-child(4) {
+		width: 200px;
+	}
+	table.table tr th:nth-child(5) {
+		width: 200px;
+	}
+	table.table tr th:nth-child(6) {
+		width: 200px;
+	}
+	table.table tr th:last-child {
+		width: 200px;
+	}
+	
     table.table-striped tbody tr:nth-of-type(odd) {
     	background-color: #fcfcfc;
 	}
@@ -191,3 +207,6 @@
 		background: #ddd;
 	}
 	
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

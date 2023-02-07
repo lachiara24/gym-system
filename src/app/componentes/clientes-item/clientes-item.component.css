@@ -8,3 +8,13 @@
     margin-top: 25px;
     margin-left: 100px;
 }
+
+.activo {
+    width: 400px;
+    height: 80px;
+    font-size: -webkit-xxx-large;
+}
+
+.dias {
+    font-size: -webkit-xxx-large;
+}

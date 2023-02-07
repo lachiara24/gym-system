@@ -1,6 +1,14 @@
-
+<mat-toolbar color="primary">
+    <a mat-button routerLink='/clientes'>Inicio</a>
+    <a mat-button routerLink='/clientes'> Clientes </a>
+    <a mat-button routerLink='/qr'> Escanear QR </a>
+    <div class="log-out">
+        <a mat-raised-button (click)="logOut()">Cerrar sesión</a>
+    </div>    
+</mat-toolbar>
 
 <router-outlet></router-outlet>
+
 
 
 	  

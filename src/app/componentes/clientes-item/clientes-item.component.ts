@@ -9,7 +9,7 @@ import { Pago } from 'src/app/Pago';
 })
 export class ClientesItemComponent {
   @Input() cliente: Cliente;
-  @Input() ultimoPago: Pago;
+  @Input() ultimoPago: any;
 
   fechaActual: Date = new Date(new Date().toDateString());
   

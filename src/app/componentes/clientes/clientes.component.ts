@@ -11,21 +11,57 @@ import { Pago } from 'src/app/Pago';
 })
 export class ClientesComponent implements OnInit{
   clientes: Cliente[] = [];
-  clienteEditar: Cliente = {id: 0, nombre: '', apellido: '', dni: ''};
-  ultimoPago: Pago = {fechaPago: new Date(), fechaVenc: new Date()};
-  filterBy;
+  clienteEditar: Cliente = {id: 0, nombre: '', apellido: '', dni: '', dire: '', obra: ''};
+  filterBy : any;
   clientesSeleccionados: Cliente[] = [];
+  ultimoPago: any;
+  fechaActual: Date = new Date(new Date().toDateString());
+  active = 0;
+
+  clientesFire: Cliente[] = [];
+
+  tableContent: any[] = [];
+
 
   constructor(
     private pagoService: PagoService,
-    private clienteService: ClienteService){}
+    private clienteService: ClienteService){ }
 
   ngOnInit() {
+    for (let i = 0; i < 100; i++) {
+      this.tableContent.push({
+        id: i + 1,
+        name: `content-${i + 1}`,
+      });
+    }
     this.clienteService.getClientes().subscribe((clientes) => {
-      this.clientes = clientes
-    });    
+      this.clientes = clientes;
+      
+      this.clientes.forEach((c) => {
+        this.pagoService.getLastPago(c.id).subscribe((pago) => {
+          if(pago){
+            c.pago = pago.fechaPago;
+            c.venc = pago.fechaVenc;
+          }
+        });  
+      }); 
+    });       
+  }
+
+  clienteActivo(fecha): boolean{
+    fecha = new Date(fecha);
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    if (this.fechaActual.getTime() === new Date(fecha).getTime()){
+      return true;
+    }else if(this.fechaActual.getTime() < new Date(fecha).getTime()){
+      return true;
+    }else{
+      return false;
+    }
   }
   
+  
+
   checkAllCheckBox(event){
     this.clientes.forEach((c) => this.clientesSeleccionados.push(c));
   }
@@ -63,12 +99,24 @@ export class ClientesComponent implements OnInit{
 
   addCliente(cliente: Cliente){
     this.clienteService.addCliente(cliente).subscribe((cliente) => {
-      this.clientes.push(cliente)
+      this.clientes = this.clientes || [];
+      this.clientes.push(cliente);
     });
+    
   }
 
   editCliente(cliente: Cliente){
     this.clienteService.updateCliente(cliente).subscribe();
+    let index = this.clientes.findIndex(el => el.id == cliente.id);
+    this.clientes[index] = cliente;
+    this.clientes.forEach((c) => {
+      this.pagoService.getLastPago(c.id).subscribe((pago) => {
+        if(pago){
+          c.pago = pago.fechaPago;
+          c.venc = pago.fechaVenc;
+        }
+      });  
+    }); 
   }
 
   deleteCliente(id){
@@ -79,5 +127,15 @@ export class ClientesComponent implements OnInit{
             return t.id !== id
           })
       ))
+  }
+
+  cantClientesActivos(): number{
+    let cont = 0;
+    this.clientes.forEach((c) => {
+      if(this.clienteActivo(c.venc)){
+        cont ++;
+      }
+    })
+    return cont;
   }
 }

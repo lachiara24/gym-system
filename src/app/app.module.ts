@@ -27,14 +27,64 @@ import { FilterPipe } from './filter.pipe';
 import {NgxPrintModule} from 'ngx-print';
 import { ImprimirComponent } from './componentes/imprimir/imprimir.component';
 import { ImprimirTodosComponent } from './componentes/imprimir-todos/imprimir-todos.component';
+import { PaginationPipe } from './pagination.pipe';
+import { HelloComponent } from './componentes/hello/hello.component';
+import { PaginationComponent } from './componentes/pagination/pagination.component';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AddClientComponent } from './componentes/add-client/add-client.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddPagoComponent } from './componentes/add-pago/add-pago.component';
+import { PagosListComponent } from './componentes/pagos-list/pagos-list.component';
+/// angular material
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatToolbarModule } from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ClientsListComponent } from './componentes/clients-list/clients-list.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
+import { LoginComponent } from './componentes/login/login.component';
+import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
+import { VerificarCorreoComponent } from './componentes/verificar-correo/verificar-correo.component';
+import { RecuperarPasswordComponent } from './componentes/recuperar-password/recuperar-password.component';
+import { ToastrModule } from 'ngx-toastr';
+import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './admin.guard';
+import {MatSortModule} from '@angular/material/sort';
+
 
 const rutas: Routes = [
-  { path: '', component: ClientesComponent },
-  { path: 'pagos/:idcliente', component: PagosComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'clientes', canActivate: [AuthGuard, AdminGuard], component: ClientsListComponent},
+  { path: 'pagos/:idcliente', canActivate: [AuthGuard, AdminGuard], component: PagosListComponent},
+  { path: 'edit-pago/:id', canActivate: [AuthGuard, AdminGuard], component: AddPagoComponent},
+  { path: 'add-pago/:idcliente', canActivate: [AuthGuard, AdminGuard], component: AddPagoComponent},
   { path: 'qr', component: LectorQRComponent},
-  { path: 'imprimir/:nombre/:apellido/:dni', component:ImprimirComponent },
-  { path: 'imprimir', component: ImprimirTodosComponent}
-];
+  { path: 'imprimir',canActivate: [AuthGuard, AdminGuard], component: ImprimirTodosComponent},
+  { path: 'add-cliente', canActivate: [AuthGuard, AdminGuard], component: AddClientComponent},
+  { path: 'clientes/:id', canActivate: [AuthGuard, AdminGuard], component: AddClientComponent},
+  { path: 'clientes', canActivate: [AuthGuard, AdminGuard], component: ClientsListComponent}, 
+  { path: 'login', component: LoginComponent},
+  { path: 'recuperar-password', component: RecuperarPasswordComponent},
+  { path: 'verificar-correo', component: VerificarCorreoComponent},
+  { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
+  { path: '**', redirectTo: 'login', pathMatch: 'full'}
+]
 
 @NgModule({
   declarations: [
@@ -53,7 +103,19 @@ const rutas: Routes = [
     DdMmYYYYDatePipe,
     FilterPipe,
     ImprimirComponent,
-    ImprimirTodosComponent
+    ImprimirTodosComponent,
+    PaginationPipe,
+    HelloComponent,
+    PaginationComponent,
+    AddClientComponent,
+    ClientsListComponent,
+    PagosListComponent,
+    AddPagoComponent,
+    LoginComponent,
+    RegistrarUsuarioComponent,
+    VerificarCorreoComponent,
+    RecuperarPasswordComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +125,32 @@ const rutas: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(rutas),
-    NgxPrintModule
+    NgxPrintModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatCardModule,
+    ToastrModule.forRoot(),
+    MatSortModule
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

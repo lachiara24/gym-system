@@ -8,7 +8,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form (ngSubmit)="onSubmit()" autocomplete="off">
+          <form (ngSubmit)="onSubmit()" autocomplete="off" #f="ngForm">
             <div class="row">
                 <div class="col-3 ml-auto mr-2">
                     <qrcode 
@@ -51,6 +51,7 @@
                 
               </div>
               <div class="col">
+                
                 <div class="form-control">
                   <label>Direccion</label>
                   <input 
@@ -81,7 +82,7 @@
             </div>
             <div class="modal-footer">
               <input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancelar">
-              <input type="submit" class="btn btn-success" data-bs-dismiss="modal" value="Agregar">
+              <input type="submit" [disabled]="f.invalid" class="btn btn-success" data-bs-dismiss="modal" value="Agregar">
             </div>	
           </form>
         </div>

@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-title>Iniciar sesión</mat-card-title>
+<mat-card-content>
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <p>
+    <mat-form-field>
+        <mat-label>Correo electrónico</mat-label>
+      <input type="text" matInput  formControlName="correo">
+      <mat-error *ngIf="myError('correo', 'required')">Es un campo obligatorio</mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="password">
+        <mat-error *ngIf="myError('password', 'required')">Es un campo obligatorio</mat-error>
+    </mat-form-field>
+  </p>
+
+  <a routerLink="/recuperar-password">Olvidé mi contraseña</a>
+  
+
+  <div class="button">
+    <button type="submit" color="primary" mat-raised-button>Ingresar</button>
+
+  </div>
+  <a routerLink="/registrar-usuario">No tengo cuenta</a>
+
+</form>
+</mat-card-content>
+</mat-card>

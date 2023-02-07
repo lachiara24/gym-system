@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-card-title>Registrarse</mat-card-title>
+<mat-card-content>
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <p>
+    <mat-form-field>
+        <mat-label>Correo electrónico</mat-label>
+      <input type="text" matInput  formControlName="correo">
+      <mat-error *ngIf="myError('correo', 'required')">Es un campo obligatorio</mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="password">
+        <mat-error *ngIf="myError('password', 'required')">Es un campo obligatorio</mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+        <mat-label>Repetir contraseña</mat-label>
+        <input type="password" matInput formControlName="passwordConfirm">
+        <mat-error *ngIf="myError('passwordConfirm', 'required')">Es un campo obligatorio</mat-error>
+    </mat-form-field>
+  </p>
+
+  
+
+  <div class="button">
+    <button type="submit" color="primary" mat-raised-button>Registrar</button>
+  </div>
+
+  <a routerLink="/login">Ya tengo cuenta</a>
+
+</form>
+</mat-card-content>
+</mat-card>

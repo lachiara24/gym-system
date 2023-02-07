@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "target": "gym-system",
+    "public": "./dist/gym-system",
+    "ignore": [
+      "**/.*"
+    ],
+    
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

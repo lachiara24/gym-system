@@ -18,6 +18,7 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
+  
   getClientes(): Observable<Cliente[]>{
     return this.http.get<Cliente[]>(this.apiUrl);
   }
@@ -28,12 +29,14 @@ export class ClienteService {
   }
 
   addCliente(cliente: Cliente): Observable<Cliente>{
-    return this.http.post<Cliente>(this.apiUrl, cliente, httpOptions);
+    return this.http.post<Cliente>(this.apiUrl, cliente, httpOptions);    
   }
+
 
   updateCliente(cliente: Cliente): Observable<Cliente>{
     console.log(cliente.id);
     const url = this.apiUrl + cliente.id;
+    this.http.post<Cliente>('http://localhost:8080/api/' + cliente.id + '/direccion', cliente.dire, httpOptions);
     return this.http.put<Cliente>(url, cliente, httpOptions);
   }
 

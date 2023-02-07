@@ -6,13 +6,18 @@ import { Cliente } from './Cliente';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: Cliente[], filterString: string, property: string): Cliente[] {
-    if (value.length === 0 || !filterString) {
+  transform(value: Cliente[], filterString: string): Cliente[] {
+    if(value === null){
+      return value;
+    }
+    if (value.length === 0 || !filterString || filterString.length < 3) {
       return value;
     }
     let filteredUsers: Cliente[] = [];
     for (let user of value) {
-      if (user[property].toLowerCase().includes(filterString.toLowerCase())) {
+      if (user.nombre.toLowerCase().includes(filterString.toLowerCase())
+          || user.apellido.toLowerCase().includes(filterString.toLowerCase())
+          || user.dni.toLowerCase().includes(filterString.toLowerCase())) {
         filteredUsers.push(user);
       }
     }

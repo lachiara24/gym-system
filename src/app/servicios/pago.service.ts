@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Pago } from '../Pago';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,9 +15,30 @@ const httpOptions = {
 })
 export class PagoService {
 
-  apiUrl: string = 'http://localhost:8080/api/';
+  constructor(private db: AngularFirestore, private http: HttpClient){}
 
-  constructor(private http: HttpClient) { }
+  getAll(id: string){
+    return this.db.collection('pagos', ref => ref.where('idcliente','==', id )).snapshotChanges();
+  }
+
+
+  add(pago: any): Promise<any>{
+    return this.db.collection('pagos').add(pago);
+  }
+
+  get(id: string): Observable<any>{
+    return this.db.collection('pagos').doc(id).snapshotChanges();
+  }
+
+  delete(id: string): Promise<any>{
+    return this.db.collection('pagos').doc(id).delete();
+  }
+
+  update(id: string, data: any): Promise<any>{
+    return this.db.collection('pagos').doc(id).update(data);
+  }
+
+  apiUrl: string = 'http://localhost:8080/api/';
 
   getPagos(clienteId): Observable<Pago[]>{
     return this.http.get<Pago[]>(this.apiUrl+clienteId+"/pagos");
