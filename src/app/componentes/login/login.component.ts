@@ -42,7 +42,7 @@ export class LoginComponent {
     this.afAuth.signInWithEmailAndPassword(email, password).then((user) => {
       // console.log(user);
       if(user.user?.emailVerified){
-        console.log(user);
+        // console.log(user);
         
         this.router.navigate(['/clientes']);
       }else{

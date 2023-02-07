@@ -67,6 +67,8 @@ import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
 import {MatSortModule} from '@angular/material/sort';
 
+import { DialogOverviewExampleDialogComponent } from './componentes/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const rutas: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -115,7 +117,8 @@ const rutas: Routes = [
     RegistrarUsuarioComponent,
     VerificarCorreoComponent,
     RecuperarPasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    DialogOverviewExampleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -144,13 +147,15 @@ const rutas: Routes = [
     MatCheckboxModule,
     MatCardModule,
     ToastrModule.forRoot(),
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore())
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogOverviewExampleDialogComponent]
 })
 export class AppModule { }

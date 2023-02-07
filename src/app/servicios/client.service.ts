@@ -9,6 +9,7 @@ export class ClientService {
 
   constructor(private db: AngularFirestore) { }
 
+
   getAll(): Observable<any> {
     return this.db.collection('clientes').snapshotChanges();
   }

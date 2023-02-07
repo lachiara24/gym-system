@@ -21,6 +21,10 @@ export class PagoService {
     return this.db.collection('pagos', ref => ref.where('idcliente','==', id )).snapshotChanges();
   }
 
+  getLast(id: string): Observable<any>{
+    return this.db.collection('pagos', ref => 
+      (ref.orderBy('date', 'desc').limit(1)) && ref.where('idcliente','==', id )).snapshotChanges();
+  }
 
   add(pago: any): Promise<any>{
     return this.db.collection('pagos').add(pago);

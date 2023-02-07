@@ -1,17 +1,25 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
 import { ClientService } from 'src/app/servicios/client.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
+import { PagoService } from 'src/app/servicios/pago.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
   styleUrls: ['./clients-list.component.css']
 })
-export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
+export class ClientsListComponent implements OnInit, OnDestroy{
   displayedColumns: string[] = ['select','nombre', 'dni', 'actions'];
   
   clients: any[] = [];
@@ -19,26 +27,22 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
   selectedClients: any[] = [];
+  clientePago: any[] = [];
 
+  // @ViewChild('empTbSort') empTbSort = new MatSort();
 
-  @ViewChild('empTbSort') empTbSort = new MatSort();
-
-  ngAfterViewInit() {
-    // this.dataSource.sort = this.empTbSort;
-  }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
+  // /** Announce the change in sort state for assistive technology. */
+  // announceSortChange(sortState: Sort) {
+  //   // This example uses English messages. If your application supports
+  //   // multiple language, you would internationalize these strings.
+  //   // Furthermore, you can customize the message to add additional
+  //   // details about the values being sorted.
+  //   if (sortState.direction) {
+  //     this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+  //   } else {
+  //     this._liveAnnouncer.announce('Sorting cleared');
+  //   }
+  // }
 
   ngOnDestroy(){
     this.selectedClients = [];
@@ -67,30 +71,61 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
     this.router.navigate(['/imprimir'], options);
   }
 
-  constructor(private client: ClientService, private router: Router,
-    private _liveAnnouncer: LiveAnnouncer) {
+  constructor(private client: ClientService, 
+    private pago: PagoService,
+    private router: Router,
+    private _liveAnnouncer: LiveAnnouncer,
+    public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.getClients();
+  }
+
+  getLastPago(){
+    this.clientePago = [];
+    this.clients.forEach(c => {
+      this.pago.getLast(c.id).subscribe(data => {        
+        
+        data.forEach((element: any) => {      
+        // console.log(element.payload.doc.id);
+        let lastPago = {
+          id: element.payload.doc.id,
+          pago: '',
+          venc: '',
+          ...element.payload.doc.data()
+        };
+        this.clientePago.push(lastPago);
+      });
+      
+      });     
+      
+    });
+    console.log(this.clientePago);
+    
     
   }
 
   getClients(){
     this.client.getAll().subscribe(data => {
       this.clients = [];
-      data.forEach((element: any) => {
-        console.log(element.payload.doc.data());
-      
+      data.forEach((element: any) => {      
         // console.log(element.payload.doc.id);
         this.clients.push({
           id: element.payload.doc.id,
+          pago: '',
+          venc: '',
           ...element.payload.doc.data()
         })
       });
-      this.dataSource = new MatTableDataSource<any>(this.clients);
-      this.dataSource.sort = this.empTbSort;
+      // // console.log(this.clients)
+      //  this.getLastPago();
+
+      // console.log(this.clients);
+      // console.log(this.clientePago);
       
+      this.dataSource = new MatTableDataSource<any>(this.clients);
+      // this.dataSource.sort = this.empTbSort;
     });
   }
 
@@ -106,4 +141,26 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
     })
   }
 
+
+  openDialog(element: any) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      cliente: element,
+      title: 'Información de cliente'
+  };
+
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+        data => console.log("Dialog output:", data)
+    );    
 }
+
+}
+
+
