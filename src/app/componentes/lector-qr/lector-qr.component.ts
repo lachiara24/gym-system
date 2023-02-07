@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { ClienteService } from 'src/app/servicios/cliente.service';
-import { Cliente } from 'src/app/Cliente';
 import { PagoService } from 'src/app/servicios/pago.service';
-import { Pago } from 'src/app/Pago';
 import { ClientService } from 'src/app/servicios/client.service';
 
 @Component({
@@ -24,7 +21,6 @@ export class LectorQRComponent {
   a: any;
 
   constructor(
-    private clienteService:ClienteService,
     private pagoService:PagoService,
     private client: ClientService
   ) {

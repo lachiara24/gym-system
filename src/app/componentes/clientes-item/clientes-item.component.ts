@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Cliente } from 'src/app/Cliente';
-import { Pago } from 'src/app/Pago';
 
 @Component({
   selector: 'app-clientes-item',
@@ -8,7 +6,7 @@ import { Pago } from 'src/app/Pago';
   styleUrls: ['./clientes-item.component.css']
 })
 export class ClientesItemComponent {
-  @Input() cliente: Cliente;
+  @Input() cliente: any;
   @Input() ultimoPago: any;
 
   fechaActual: Date = new Date(new Date().toDateString());
