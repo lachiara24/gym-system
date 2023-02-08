@@ -2,12 +2,21 @@
     <button mat-raised-button routerLink="/add-cliente" class="demo-button">
       Agregar cliente
     </button>
+
+    <button (click)="imprimir()" mat-raised-button color="primary">
+      Imprimir
+  </button>
 </div>
 
 
-<button (click)="imprimir()" mat-raised-button color="primary">
-    Imprimir
-</button>
+
+
+<p>
+  <mat-form-field class="filter">
+    <mat-label>Búsqueda</mat-label>
+    <input matInput (keyup)="applyFilter($event)"  #input>
+  </mat-form-field>
+</p>
 
 <!-- <table mat-table [dataSource]="dataSource" matSort #empTbSort="matSort"
  class="mat-elevation-z8"> -->
@@ -15,6 +24,7 @@
  <table mat-table [dataSource]="dataSource"
  class="mat-elevation-z8">
 
+ 
     <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
@@ -78,4 +88,12 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    
 </table>
+<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5,10,15,20]"
+              aria-label="Select page"
+              #paginator>
+</mat-paginator>

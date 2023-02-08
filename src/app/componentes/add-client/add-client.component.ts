@@ -69,7 +69,7 @@ export class AddClientComponent implements OnInit{
     }
 
     this.clientService.update(id, cliente).then(() => {
-      this.router.navigate(['']);
+      this.router.navigate(['/clientes']);
     }).catch(error => {
       console.log(error);      
     })
@@ -87,7 +87,7 @@ export class AddClientComponent implements OnInit{
 
     this.clientService.add(cliente).then(() => {
       // console.log('cliente registrado');
-      this.router.navigate(['']);
+      this.router.navigate(['/clientes']);
     }).catch(error => {
       console.log(error);
     })

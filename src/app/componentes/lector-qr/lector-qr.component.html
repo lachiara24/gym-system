@@ -1,10 +1,10 @@
-<div class="container-fluid">
+
     <select #selectList (change)="selectCamera(selectList.value)">
     <option *ngFor="let camera of cameras" value={{camera.label}}>
     {{ camera.label }}
     </option>
     </select>
-
+<div class="contenedor">
     <zxing-scanner style="width: 500px;"
         [enable]="scannerEnabled"
         [device]="myDevice"

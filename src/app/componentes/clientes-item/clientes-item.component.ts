@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ClientesItemComponent {
   @Input() cliente: any;
   @Input() ultimoPago: any;
+  @Input() mode: boolean = false;
 
   fechaActual: Date = new Date(new Date().toDateString());
   

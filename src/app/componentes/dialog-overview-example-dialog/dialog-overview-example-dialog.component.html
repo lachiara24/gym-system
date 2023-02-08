@@ -1,16 +1,15 @@
-<h2 mat-dialog-title>{{description}}</h2>
+<!-- <h2 class="titulo" mat-dialog-title>Información de cliente</h2> -->
 
-<div mat-dialog-content [formGroup]="form">
+<div mat-dialog-content>
   
 <app-clientes-item
-    [cliente]="cliente">
-
+    [cliente]="cliente"
+    [mode]="true"
+    [ultimoPago]="ultimoPago">
 </app-clientes-item>
  
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary">Imprimir</button>
-    <button mat-raised-button (click)="close()">Cerrar</button>
-    
+    <button mat-raised-button (click)="close()">Cerrar</button>    
 </div>

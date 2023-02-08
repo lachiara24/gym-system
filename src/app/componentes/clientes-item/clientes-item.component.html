@@ -1,29 +1,33 @@
 <div class="container-fluid">
-    <div class="cliente row">
-        <div class="col-4">
-        <div class="infoCliente">
-            <h2>
-                {{cliente.nombre}} {{cliente.apellido}}
-            </h2>
-            <h3>DNI: {{cliente.dni}}</h3>
-            <div *ngIf="ultimoPago">
-                <h3>Último pago: {{ultimoPago.pago | date: 'dd/MM/yyyy'}}</h3>
-                <h3>Último vencimiento: {{ultimoPago.venc | date: 'dd/MM/yyyy'}}</h3>
-                
-                <div *ngIf="clienteActivo(ultimoPago.venc); else inactivo">                    
-                    <p class="dias">Quedan {{quedanDias(ultimoPago.venc)}} días</p>
-                    <span class="activo btn btn-success">ACTIVO</span>
-                </div> 
-                <ng-template #inactivo>
-                    <span class="activo btn btn-danger">VENCIDO</span>
-                </ng-template>
+    <div class="cliente">
+        <div class="qr" id="print-section">
+            <qrcode 
+            *ngIf="cliente.dni"
+            [qrdata]="cliente.dni" [width]="250" [errorCorrectionLevel]="'H'"></qrcode> 
             </div>
+        <div class="infoCliente">
+            <p class="nombre">
+                {{cliente.nombre}} {{cliente.apellido}}
+            </p>
+            <p>DNI: {{cliente.dni}}</p>
+            <div *ngIf="mode">
+                <p>Dirección: {{cliente.direccion}}</p>
+                <p>Teléfono: {{cliente.tel}}</p>
+                <p>Obra social: {{cliente.obra}}</p>
+            </div>      
+           
         </div>
-        </div>
-        <div class="col-3">
-        <qrcode 
-        *ngIf="cliente.dni"
-        [qrdata]="cliente.dni" [width]="250" [errorCorrectionLevel]="'H'"></qrcode> 
+        <div class="pago" *ngIf="ultimoPago">
+            <p>Último pago: <b>{{ultimoPago.pago | date: 'dd/MM/yyyy'}}</b></p>
+            <p>Último vencimiento: <b>{{ultimoPago.venc | date: 'dd/MM/yyyy'}}</b></p>
+            
+            <div *ngIf="clienteActivo(ultimoPago.venc); else inactivo">                    
+                <p class="dias">Quedan {{quedanDias(ultimoPago.venc)}} días</p>
+                <span class="activo btn btn-success">ACTIVO</span>
+            </div> 
+            <ng-template #inactivo>
+                <span class="activo btn btn-danger">VENCIDO</span>
+            </ng-template>
         </div>
     </div>
 </div>

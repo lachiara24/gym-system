@@ -28,6 +28,7 @@ import { AddPagoComponent } from './componentes/add-pago/add-pago.component';
 import { PagosListComponent } from './componentes/pagos-list/pagos-list.component';
 /// angular material
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -119,7 +120,8 @@ const rutas: Routes = [
     MatCardModule,
     ToastrModule.forRoot(),
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore())
   ],

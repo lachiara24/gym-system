@@ -8,6 +8,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { PagoService } from 'src/app/servicios/pago.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface DialogData {
   animal: string;
@@ -19,7 +20,7 @@ export interface DialogData {
   templateUrl: './clients-list.component.html',
   styleUrls: ['./clients-list.component.css']
 })
-export class ClientsListComponent implements OnInit, OnDestroy{
+export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
   displayedColumns: string[] = ['select','nombre', 'dni', 'actions'];
   
   clients: any[] = [];
@@ -29,6 +30,9 @@ export class ClientsListComponent implements OnInit, OnDestroy{
   selectedClients: any[] = [];
   clientePago: any[] = [];
 
+  @ViewChild('paginator') paginator: MatPaginator;
+
+  
   // @ViewChild('empTbSort') empTbSort = new MatSort();
 
   // /** Announce the change in sort state for assistive technology. */
@@ -54,6 +58,9 @@ export class ClientsListComponent implements OnInit, OnDestroy{
     return numSelected === numRows;
   }
 
+  ngAfterViewInit(): void {
+      // this.dataSource.paginator = this.paginator;
+  }
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
@@ -106,6 +113,11 @@ export class ClientsListComponent implements OnInit, OnDestroy{
     
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+
   getClients(){
     this.client.getAll().subscribe(data => {
       this.clients = [];
@@ -125,6 +137,7 @@ export class ClientsListComponent implements OnInit, OnDestroy{
       // console.log(this.clientePago);
       
       this.dataSource = new MatTableDataSource<any>(this.clients);
+      this.dataSource.paginator = this.paginator;
       // this.dataSource.sort = this.empTbSort;
     });
   }

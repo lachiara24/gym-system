@@ -1,7 +1,13 @@
 .demo-button-container {
     padding-bottom: 16px;
-  }
+    margin: 25px;
+}
   
-  .demo-button + .demo-button {
-    margin-left: 8px;
-  }
+.demo-button + .demo-button {
+  margin-left: 8px;
+}
+
+.filter{
+  margin: 25px;
+  width: 500px;
+}

@@ -1,20 +1,38 @@
 .cliente{
-    background-color: #f4f4f4;
-    margin: 5px;
-    padding: 10px 20px;
+    margin: 20px;
+    display: flex;
 }
 
 .infoCliente{
-    margin-top: 25px;
-    margin-left: 100px;
+    margin: auto;
+    font-size: 28px;
+    line-height: 40px;
+}
+
+.pago{
+    font-size: 30px;
+}
+
+.nombre{
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: bold;
 }
 
 .activo {
-    width: 400px;
-    height: 80px;
-    font-size: -webkit-xxx-large;
+    width: 300px;
+    margin: auto;
+    font-size: 20px;
+    cursor: default;
+    display: flex;
+    justify-content: center;
 }
 
 .dias {
-    font-size: -webkit-xxx-large;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+p{
+    margin: 30px;
 }
