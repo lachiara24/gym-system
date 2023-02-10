@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PagoService } from 'src/app/servicios/pago.service';
 import { ClientService } from 'src/app/servicios/client.service';
+import { ToastrService } from 'ngx-toastr';
+import { DoorService } from 'src/app/servicios/door.service';
 
 @Component({
   selector: 'app-lector-qr',
@@ -17,12 +19,16 @@ export class LectorQRComponent {
   clienteEscaneado: any;
   ultimoPago: any;
   pagos: any[] = [];
-
+  fechaActual: Date = new Date(new Date().toDateString());
   a: any;
+  lastEvent: any = 0;
+  times: number = 0;
 
   constructor(
     private pagoService:PagoService,
-    private client: ClientService
+    private client: ClientService,
+    private toastr: ToastrService,
+    private door: DoorService
   ) {
     this.getClients();
     // this.getPagos("GfBRqt9fNfQjvd2pvZgU");
@@ -61,6 +67,12 @@ export class LectorQRComponent {
         venc: new Date(this.a[0].venc.seconds * 1000)
       }
       // console.log(this.ultimoPago);
+      if(this.clienteActivo(this.ultimoPago.venc)){
+        this.openDoor();
+        this.toastr.success("","Abriendo puerta");
+      }else{
+        this.toastr.error("Cuota vencida","Acceso denegado");
+      }
     });
   }
 
@@ -72,7 +84,9 @@ export class LectorQRComponent {
   scanSuccessHandler(event:string){
     console.log(event);
     this.results.unshift(event);
-    
+    if(event === this.lastEvent){
+      return;
+    }
     
     // this.clienteService.getClientes().subscribe((clientes) => {
     //   this.clientes = clientes;
@@ -85,9 +99,11 @@ export class LectorQRComponent {
       this.getPagos(clienteEscaneado.id);
       
       
+      
       // this.pagoService.getLastPago(this.clienteEscaneado.id).subscribe((pago) => {
       //   this.ultimoPago = pago;
       // });   
+      this.lastEvent = event;
     }    
   }
 
@@ -99,6 +115,29 @@ export class LectorQRComponent {
         this.scannerEnabled=true;
       }
     })    
+  }
+
+  clienteActivo(fecha): boolean{
+    fecha = new Date(fecha);
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    if (this.fechaActual.getTime() === new Date(fecha).getTime()){
+      return true;
+    }else if(this.fechaActual.getTime() < new Date(fecha).getTime()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  openDoor(){
+    const data = {
+      name: 'matias',
+      password: 'GYM9785'
+    }
+    
+    this.door.open(data).subscribe(d =>{
+      
+    })
   }
 
 }

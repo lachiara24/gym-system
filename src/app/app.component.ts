@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { DoorService } from './servicios/door.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,20 @@ export class AppComponent implements OnInit{
   logged: boolean = false;
   
   constructor(private afAuth: AngularFireAuth,
-    private router: Router){
+    private router: Router,
+    private door: DoorService,
+    private toastr: ToastrService){
+  }
+
+  openDoor(){
+    const data = {
+      name: 'matias',
+      password: 'GYM9785'
+    }
+    this.toastr.success("","Abriendo puerta");
+    this.door.open(data).subscribe(d =>{
+      
+    })
   }
 
   ngOnInit(): void {

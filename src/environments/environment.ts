@@ -8,7 +8,7 @@ export const environment = {
     apiKey: 'AIzaSyBKNpK1MPrVVd9PcCp8LVL7Dl3d7Mgd8WQ',
     authDomain: 'gym-system-51516.firebaseapp.com',
     messagingSenderId: '951869483086',
-  }
-
+  },
+  URL: "http://192.168.100.34/open"
   
 }; 
