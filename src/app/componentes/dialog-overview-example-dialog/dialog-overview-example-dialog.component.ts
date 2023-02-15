@@ -19,7 +19,7 @@ export class DialogOverviewExampleDialogComponent {
         private dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
         private pagoService: PagoService,
         @Inject(MAT_DIALOG_DATA) data) {
-
+        dialogRef.disableClose = false;
         this.cliente = data.cliente;
     }
 

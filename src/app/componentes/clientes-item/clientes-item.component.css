@@ -3,8 +3,14 @@
     display: flex;
 }
 
+.qr-foto{
+    margin: 20px;
+    width: 350px;
+    text-align: center;
+}
+
 .infoCliente{
-    margin: auto;
+    /* margin: auto; */
     font-size: 28px;
     line-height: 40px;
 }
@@ -35,4 +41,10 @@
 
 p{
     margin: 30px;
+}
+
+.vencimiento{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

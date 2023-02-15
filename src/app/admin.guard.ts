@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate {
   constructor(private router: Router, private afAuth: AngularFireAuth,
     private toastr: ToastrService){}
 
-  private admin: string[] = ['KSAnZxvXiXZoh6fqo1Af4B4OLQZ2', ''];
+  private admin: string[] = ['KSAnZxvXiXZoh6fqo1Af4B4OLQZ2', '9ZJONwMjkrWofQdAr6LAJtYyuTv1'];
 
   canActivate() {
     this.afAuth.currentUser.then((user) => {

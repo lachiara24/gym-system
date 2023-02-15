@@ -9,6 +9,7 @@ import { PagoService } from 'src/app/servicios/pago.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { QrViewComponent } from '../qr-view/qr-view.component';
 
 export interface DialogData {
   animal: string;
@@ -29,6 +30,9 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
   selection = new SelectionModel<any>(true, []);
   selectedClients: any[] = [];
   clientePago: any[] = [];
+
+  prueba: any = {nombre: 'nombre', dni: 'dni', apellido: 'apellido',
+    comentario: 'debe', direccion: '', tel: '', tel2: ''};
 
   @ViewChild('paginator') paginator: MatPaginator;
 
@@ -147,11 +151,13 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
   
 
   delete(id: string){
-    this.client.delete(id).then(() => {
-      console.log("eliminado");
-    }).catch(error => {
-      console.log(error);
-    })
+    if(confirm("Estás seguro de eliminar este cliente?")) {
+      this.client.delete(id).then(() => {
+        console.log("eliminado");
+      }).catch(error => {
+        console.log(error);
+      });
+    }
   }
 
 
@@ -172,8 +178,30 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
     dialogRef.afterClosed().subscribe(
         data => console.log("Dialog output:", data)
     );    
-}
+  }
 
+  qr(element: any) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      cliente: element,
+      title: 'Información de cliente'
+  };
+
+    const dialogRef = this.dialog.open(QrViewComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+        data => console.log("Dialog output:", data)
+    );    
+  }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+}
 }
 
 

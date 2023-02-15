@@ -35,6 +35,13 @@
           <input matInput formControlName="tel">
         </mat-form-field>
     </p>
+
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Telefono de emergencia</mat-label>
+        <input matInput formControlName="tel2">
+      </mat-form-field>
+  </p>
   
     <p>
       <mat-form-field class="example-full-width">
@@ -42,12 +49,19 @@
         <textarea matInput formControlName="direccion"></textarea>
       </mat-form-field>
     </p>
+
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Comentario</mat-label>
+        <input matInput formControlName="comentario">
+      </mat-form-field>
+  </p>
   
     <div class="buttons">
         <button type="submit" mat-raised-button color="primary">
             Guardar
         </button>
-        <button type="button" routerLink="/" mat-button color="primary">
+        <button type="button" routerLink="/clientes" mat-button color="primary">
             Cancelar
         </button>
     </div>

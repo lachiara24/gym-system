@@ -9,6 +9,7 @@ export class ClientesItemComponent {
   @Input() cliente: any;
   @Input() ultimoPago: any;
   @Input() mode: boolean = false;
+  @Input() descargar: boolean = false;
 
   fechaActual: Date = new Date(new Date().toDateString());
   

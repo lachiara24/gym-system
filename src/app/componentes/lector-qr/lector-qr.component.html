@@ -11,7 +11,7 @@
         (camerasFound)="camerasFoundHandler($event)"
         (scanSuccess)="scanSuccessHandler($event)"
     ></zxing-scanner>
-    <app-clientes-item *ngIf="clienteEscaneado !== undefined"
+    <app-clientes-item id="cliente" *ngIf="clienteEscaneado !== undefined"
         [cliente]="clienteEscaneado"
         [ultimoPago]="ultimoPago">
     </app-clientes-item>

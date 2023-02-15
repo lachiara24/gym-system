@@ -23,6 +23,7 @@ export class LectorQRComponent {
   a: any;
   lastEvent: any = 0;
   times: number = 0;
+  opened: boolean = false;
 
   constructor(
     private pagoService:PagoService,
@@ -67,7 +68,8 @@ export class LectorQRComponent {
         venc: new Date(this.a[0].venc.seconds * 1000)
       }
       // console.log(this.ultimoPago);
-      if(this.clienteActivo(this.ultimoPago.venc)){
+      if(this.clienteActivo(this.ultimoPago.venc) && this.opened === false){
+        this.opened = true;
         this.openDoor();
         this.toastr.success("","Abriendo puerta");
       }else{
@@ -79,6 +81,19 @@ export class LectorQRComponent {
   camerasFoundHandler(cameras: MediaDeviceInfo[]){
     this.cameras=cameras;
     this.selectCamera(this.cameras[0].label);
+  }
+
+  hideAnimatedDiv() {
+    let animatedDiv = document.getElementById('cliente');
+    if(animatedDiv !== null){
+      animatedDiv.style.display = 'block';
+      setTimeout(() => {
+        console.log('hide');
+        if(animatedDiv !== null){
+          animatedDiv.style.display = 'none';
+        }        
+      }, 3000);
+    }    
   }
 
   scanSuccessHandler(event:string){
@@ -98,12 +113,16 @@ export class LectorQRComponent {
       
       this.getPagos(clienteEscaneado.id);
       
-      
+      setTimeout(() => {
+        console.log('hide');
+        this.clienteEscaneado = undefined; 
+      }, 10000);
       
       // this.pagoService.getLastPago(this.clienteEscaneado.id).subscribe((pago) => {
       //   this.ultimoPago = pago;
       // });   
       this.lastEvent = event;
+      this.opened = false;
     }    
   }
 

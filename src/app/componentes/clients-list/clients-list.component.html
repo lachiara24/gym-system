@@ -10,7 +10,6 @@
 
 
 
-
 <p>
   <mat-form-field class="filter">
     <mat-label>Búsqueda</mat-label>
@@ -70,18 +69,25 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element"> 
-            <button [routerLink]="['/pagos/', element.id]" mat-icon-button color="primary">
+            <button matTooltip="Pagos" [routerLink]="['/pagos/', element.id]" mat-icon-button color="primary">
                 <mat-icon>attach_money</mat-icon>
             </button>
-            <button mat-icon-button (click)="openDialog(element)">
+            <button matTooltip="Información" mat-icon-button (click)="openDialog(element)">
               <mat-icon>menu</mat-icon>
             </button>
-            <button [routerLink]="['/clientes/', element.id]" mat-icon-button color="accent">
+            <button matTooltip="Descargar QR" mat-icon-button (click)="qr(element)">
+              <mat-icon><span class="material-icons">file_download</span></mat-icon>
+            </button>             
+              <a matTooltip="Enviar QR" href="https://api.whatsapp.com/send?phone={{element.tel}}&text=https://api.qrserver.com/v1/create-qr-code/?size=150x150%26data={{element.dni}}" target="_blank">
+                <button mat-icon-button><mat-icon>send</mat-icon></button>
+              </a>    
+            <button matTooltip="Editar" [routerLink]="['/clientes/', element.id]" mat-icon-button color="accent">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="delete(element.id)" mat-icon-button color="warn">
+            <button matTooltip="Eliminar" (click)="delete(element.id)" mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
-            </button>            
+            </button>  
+                
          </td>
     </ng-container>
   

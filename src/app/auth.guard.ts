@@ -16,15 +16,17 @@ export class AuthGuard implements CanActivate {
   private admin: string[] = ['KSAnZxvXiXZoh6fqo1Af4B4OLQZ2', 'uhUDYBYjrxOHQ4wvu6PI6HdAwoB3'];
 
   canActivate(){
-    this.afAuth.currentUser.then((user) => {
-      if (user === null) {
-        // console.log('No estás logueado');
+    this.afAuth.authState.subscribe(res => {
+      if (res && res.uid) {
+        console.log('user is logged in');
+        return true;
+      } else {
+        console.log('user not logged in');
         this.toastr.warning('Para ingresar a esa sección debe ingresar con su cuenta', 'Sesión no iniciada');
         this.router.navigate(['/']);
         return false;
-      }      
-      return true;
-    })
+      }
+    });
     return true;
   }
   

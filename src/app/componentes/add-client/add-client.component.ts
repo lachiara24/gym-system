@@ -40,7 +40,9 @@ export class AddClientComponent implements OnInit{
       dni: ['', Validators.required],
       obra: [''],
       direccion: [''],
-      tel: ['']
+      tel: [''],
+      tel2: [''],
+      comentario: ['']
     });
   }
 
@@ -65,7 +67,9 @@ export class AddClientComponent implements OnInit{
       dni: this.form.value.dni,
       obra: this.form.value.obra,
       direccion: this.form.value.direccion,
-      tel: this.form.value.tel
+      tel: this.form.value.tel,
+      tel2: this.form.value.tel2,
+      comentario: this.form.value.comentario
     }
 
     this.clientService.update(id, cliente).then(() => {
@@ -82,7 +86,9 @@ export class AddClientComponent implements OnInit{
       dni: this.form.value.dni,
       obra: this.form.value.obra,
       direccion: this.form.value.direccion,
-      tel: this.form.value.tel
+      tel: this.form.value.tel,
+      tel2: this.form.value.tel2,
+      comentario: this.form.value.comentario
     }
 
     this.clientService.add(cliente).then(() => {
@@ -109,6 +115,8 @@ export class AddClientComponent implements OnInit{
           direccion: data.payload.data()['direccion'],
           obra: data.payload.data()['obra'],
           tel: data.payload.data()['tel'],
+          tel2: data.payload.data()['tel2'],
+          comentario: data.payload.data()['comentario']
         })
       });
     }

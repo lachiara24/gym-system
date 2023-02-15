@@ -2,7 +2,7 @@
     <a mat-button routerLink='/clientes'>Inicio</a>
     <a mat-button routerLink='/clientes'> Clientes </a>
     <a mat-button routerLink='/qr'> Escanear QR </a>
-    <div class="log-out">
+    <div *ngIf="logged" class="log-out">
         <a mat-raised-button (click)="openDoor()">Abrir puerta</a>
         <a mat-raised-button (click)="logOut()">Cerrar sesión</a>
     </div>    

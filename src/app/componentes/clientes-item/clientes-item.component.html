@@ -1,6 +1,19 @@
-<div class="container-fluid">
-    <div class="cliente">
-        <div class="qr" id="print-section">
+<div class="qr-foto" *ngIf="descargar">
+    <div class="qr">
+        <qrcode 
+        *ngIf="cliente.dni"
+        [qrdata]="cliente.dni" [width]="250" [errorCorrectionLevel]="'H'"></qrcode> 
+        </div>
+    <div class="infoCliente">
+        <p class="nombre">
+            {{cliente.nombre}} {{cliente.apellido}}
+        </p>
+        <p>DNI: {{cliente.dni}}</p>
+    </div>
+</div>
+
+    <div class="cliente" *ngIf="!descargar">
+        <div class="qr">
             <qrcode 
             *ngIf="cliente.dni"
             [qrdata]="cliente.dni" [width]="250" [errorCorrectionLevel]="'H'"></qrcode> 
@@ -10,25 +23,34 @@
                 {{cliente.nombre}} {{cliente.apellido}}
             </p>
             <p>DNI: {{cliente.dni}}</p>
+            <p>{{cliente.comentario}}</p>
+            <div class="pago" *ngIf="ultimoPago">
+                <!-- <p>Último pago: <b>{{ultimoPago.pago | date: 'dd/MM/yyyy'}}</b></p> -->
+                <div class="vencimiento">
+                    <p>
+                        Vencimiento: <b>{{ultimoPago.venc | date: 'dd/MM/yyyy'}}</b>
+                    </p> 
+                    <a matTooltip="Enviar vencimiento" *ngIf="mode" href="https://api.whatsapp.com/send?phone={{cliente.tel}}&&text=Vencimiento: {{ultimoPago.venc | date: 'dd/MM/yyyy'}}" target="_blank">
+                        <button mat-icon-button><mat-icon>send</mat-icon></button>
+                    </a>  
+                </div>
+                
+                <div *ngIf="clienteActivo(ultimoPago.venc); else inactivo">                    
+                    <p class="dias">Quedan {{quedanDias(ultimoPago.venc)}} días</p>
+                    <span class="activo btn btn-success">ACTIVO</span>
+                </div> 
+                <ng-template #inactivo>
+                    <span class="activo btn btn-danger">VENCIDO</span>
+                </ng-template>
+            </div>
             <div *ngIf="mode">
                 <p>Dirección: {{cliente.direccion}}</p>
                 <p>Teléfono: {{cliente.tel}}</p>
+                <p>Teléfono de emergencia: {{cliente.tel2}}</p>
                 <p>Obra social: {{cliente.obra}}</p>
-            </div>      
-           
+            </div>  
         </div>
-        <div class="pago" *ngIf="ultimoPago">
-            <p>Último pago: <b>{{ultimoPago.pago | date: 'dd/MM/yyyy'}}</b></p>
-            <p>Último vencimiento: <b>{{ultimoPago.venc | date: 'dd/MM/yyyy'}}</b></p>
-            
-            <div *ngIf="clienteActivo(ultimoPago.venc); else inactivo">                    
-                <p class="dias">Quedan {{quedanDias(ultimoPago.venc)}} días</p>
-                <span class="activo btn btn-success">ACTIVO</span>
-            </div> 
-            <ng-template #inactivo>
-                <span class="activo btn btn-danger">VENCIDO</span>
-            </ng-template>
-        </div>
+        
     </div>
-</div>
+
 

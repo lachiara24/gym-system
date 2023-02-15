@@ -52,9 +52,11 @@ import { DashboardComponent } from './componentes/dashboard/dashboard.component'
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
 import {MatSortModule} from '@angular/material/sort';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { DialogOverviewExampleDialogComponent } from './componentes/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { QrViewComponent } from './componentes/qr-view/qr-view.component';
 
 const rutas: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -62,7 +64,7 @@ const rutas: Routes = [
   { path: 'pagos/:idcliente', canActivate: [AuthGuard, AdminGuard], component: PagosListComponent},
   { path: 'edit-pago/:id', canActivate: [AuthGuard, AdminGuard], component: AddPagoComponent},
   { path: 'add-pago/:idcliente', canActivate: [AuthGuard, AdminGuard], component: AddPagoComponent},
-  { path: 'qr', component: LectorQRComponent},
+  { path: 'qr', canActivate: [AuthGuard], component: LectorQRComponent},
   { path: 'imprimir',canActivate: [AuthGuard, AdminGuard], component: ImprimirTodosComponent},
   { path: 'add-cliente', canActivate: [AuthGuard, AdminGuard], component: AddClientComponent},
   { path: 'clientes/:id', canActivate: [AuthGuard, AdminGuard], component: AddClientComponent},
@@ -70,7 +72,7 @@ const rutas: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'recuperar-password', component: RecuperarPasswordComponent},
   { path: 'verificar-correo', component: VerificarCorreoComponent},
-  { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
+  // { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
   { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ]
 
@@ -90,7 +92,8 @@ const rutas: Routes = [
     VerificarCorreoComponent,
     RecuperarPasswordComponent,
     DashboardComponent,
-    DialogOverviewExampleDialogComponent
+    DialogOverviewExampleDialogComponent,
+    QrViewComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +124,8 @@ const rutas: Routes = [
     ToastrModule.forRoot(),
     MatSortModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore())
   ],

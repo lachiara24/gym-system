@@ -25,24 +25,29 @@ export class AppComponent implements OnInit{
       password: 'GYM9785'
     }
     this.toastr.success("","Abriendo puerta");
+    
     this.door.open(data).subscribe(d =>{
       
     })
   }
 
   ngOnInit(): void {
-    this.afAuth.currentUser.then((user) => {
-      if(user && user.emailVerified){
+    this.afAuth.authState.subscribe(res => {
+      if (res && res.uid) {
         this.logged = true;
-      } else{
+        console.log('user is logged in');
+        this.door.getIp();
+      } else {
+        console.log('user not logged in');
         this.router.navigate(['/login']);
       }
-    })
+    });
   }
 
   logOut(){
+    this.logged = false;
     this.afAuth.signOut().then(() => {
-      this.logged = false;
+      
       this.router.navigate(['/login']);
     })
   }
