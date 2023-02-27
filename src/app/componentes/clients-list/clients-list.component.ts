@@ -22,7 +22,7 @@ export interface DialogData {
   styleUrls: ['./clients-list.component.css']
 })
 export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
-  displayedColumns: string[] = ['select','nombre', 'dni', 'actions'];
+  displayedColumns: string[] = ['select','nombre', 'dni', 'comentario', 'actions'];
   
   clients: any[] = [];
   panelOpenState = false;
@@ -150,9 +150,9 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit{
 
   
 
-  delete(id: string){
-    if(confirm("Estás seguro de eliminar este cliente?")) {
-      this.client.delete(id).then(() => {
+  delete(element: any){
+    if(confirm("Estás seguro de eliminar este cliente? --> " + element.nombre + ' ' + element.apellido)) {
+      this.client.delete(element.id).then(() => {
         console.log("eliminado");
       }).catch(error => {
         console.log(error);
