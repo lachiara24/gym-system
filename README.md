@@ -46,6 +46,9 @@ Impresión desde la web
 
 Descarga desde la web
 
+## TO DO
+
+- Fotografía del cliente
 
 
 
