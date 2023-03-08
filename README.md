@@ -39,9 +39,11 @@ Al escanear el código, se muestra en pantalla los días restantes de la cuota y
 Los codigos QR se pueden imprimir desde la web seleccionando los clientes deseados, se pueden descargar para enviar luego por algún medio digital o, se pueden enviar directamente por WhatsApp.
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/fir-gym-dc653.appspot.com/o/readme%2Fimprimir-clientes.png?alt=media&token=d72313e4-266e-4dda-bbb1-79d1bf58064c)
+
 Impresión desde la web
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/fir-gym-dc653.appspot.com/o/readme%2Fdescargar-qr.png?alt=media&token=3f8ad6a0-f821-4366-a9a0-75c52228a7e5)
+
 Descarga desde la web
 
 
