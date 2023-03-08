@@ -3,7 +3,7 @@
 
 # GymSystem
 
-Un sistema web para administrar clientes de un gimnasio. Se registran los clientes con su DNI y se genera un código QR que luego al escanearlo, se otorga acceso al establecimiento teniendo en cuenta el vencimmiento de la cuota abonada.
+Un sistema web para administrar clientes de un gimnasio. Se registran los clientes con su DNI y se genera un código QR que luego al escanearlo, se otorga acceso al establecimiento teniendo en cuenta el vencimiento de la cuota abonada.
 
 # Demo
 
