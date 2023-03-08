@@ -9,6 +9,9 @@ Un sistema web para administrar clientes de un gimnasio. Se registran los client
 
 Aquí está un demo de la app: https://fir-gym-dc653.web.app/
 
+Correo: admin@gmail.com
+Contraseña: admin123
+
 # Sitio web
 
 ## Página de inicio de sesión
